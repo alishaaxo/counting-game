@@ -5,17 +5,24 @@ public class App {
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
-
         // Generating a random number between 1 and 50
         Random random = new Random();
-        int number = random.nextInt(50) + 1;
 
+        int playerWinCount = 0;
+        int computerWinCount = 0;
+
+        while (playerWinCount < 2 && computerWinCount < 2) {
+            System.out.println("New Game woop woop!");
+        }
+
+        int number = random.nextInt(50) + 1;
         // Setting the number of attempts as 4
         int attempts = 4;
+        boolean guessedCorrectly = false;
 
         // Instructions for the user
         System.out.println(
-                "I as the computer have chosen a number between 1 and 50");
+                "I, the glorius computer have chosen a number between 1 and 50");
         System.out.println(
                 "You have " + attempts + " attempts to guess the correct number, good luck!");
 
@@ -28,10 +35,9 @@ public class App {
             if (guess == number) {
                 System.out.println(
                         " Congratulations! You have guessed the correct number.");
-                scanner.close();
-
-                // Exits the function if the user has guessed the number correctly
-                return;
+                playerWinCount++;
+                guessedCorrectly = true;
+                break;
             } else if (guess < number) {
                 System.out.println(
                         " The number is higher than " + guess);
@@ -41,9 +47,17 @@ public class App {
             }
         }
 
-        // Text to display to the user if they have reached 4 attempts and haven't guessed correctly
-        System.out.println(
-                "You have used all your attempts, silly! The correct number was: " + number);
+        if (!guessedCorrectly) {
+            System.out.println("MWAHAHAHAHAH! You have lost this round! The correct number was: " + number);
+            computerWinCount++;
+        }
+
+        // Text to display whoever has won the best of three
+        if (playerWinCount == 2) {
+            System.out.println("You have won the best of three... has to be AI");
+        } else {
+            System.out.println("I, THE GLORIUS COMPUTER, HAVE WON THE BEST OF THREE! MWAHAHAH!");
+        }
         scanner.close();
     }
 }
